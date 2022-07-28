@@ -1,0 +1,28 @@
+#menu_bar {
+    margin: 15px;
+    border: 3px solid #bddfe1;
+    border-radius: 10px;
+    position: relative;
+}
+
+#menu_bar>* {
+    margin: 10px;
+}
+
+#lang_switcher {
+    position: absolute;
+    right: 15px;
+    float: right;
+}
+
+.navbar .dropdown-menu .dropdown-menu {
+	top: auto;
+	left: 100%;
+	transform: translateY(-2rem);
+}
+.navbar .dropdown-item + .dropdown-menu {
+	display: none;
+}
+.navbar .dropdown-item.submenu::after {
+	margin-left: 0.5rem;
+}

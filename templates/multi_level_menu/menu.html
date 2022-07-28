@@ -1,0 +1,73 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock head %}
+
+{% block title %}Menu{% endblock title %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="menu_bar">
+    {% for i in data %}
+    <div class="dropdown" id="{{ i.txt }}">
+        <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">
+            {{ i.txt }}
+        </button>
+        <div class="dropdown-menu">
+            {% for j in i.sub %}
+                {% if j.sub %}
+                    <a class="dropdown-item submenu" href="#">{{ j.txt }} ▸</a>
+                    <div class="dropdown-menu sub-menu">
+                        {% for k in j.sub %}
+                            <a class="dropdown-item" href="{{ k.value }}">{{ k.txt }}</a>
+                        {% endfor %}
+                    </div>
+                {% elif j.value %}
+                    <a class="dropdown-item" href="{{ j.value }}">{{ j.txt }}</a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    
+    {% endfor %}
+
+    <div class="dropdown" id="lang_switcher">
+        {% if flag == 'en' %}
+        <a class="nav-link dropdown-toggle" href="#"
+        id="lang_ico" role="button"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="{% static 'images/en.jpg' %}" class="rounded float-left" height="40%" width="60%"
+            data-bs-toggle="dropdown">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="lang_ico">
+            <a class="dropdown-item" href="../ua/">
+                <img src="{% static 'images/ua.jpg' %}" height="20%" width="30%" style="border-radius: 5px;">
+            </a>
+        </div>
+        {% elif flag == 'ua' %}
+            <a class="nav-link dropdown-toggle" href="#"
+            id="lang_ico" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{% static 'images/ua.jpg' %}" class="rounded float-left" height="40%" width="60%"
+                data-bs-toggle="dropdown">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="lang_ico">
+                <a class="dropdown-item" href="../en">
+                    <img src="{% static 'images/en.jpg' %}" height="20%" width="30%" style="border-radius: 5px;">
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</nav>
+
+<script>
+    $(document).ready(function(){
+        $('.dropdown-menu a.submenu').on("click", function(e){
+          $(this).next('div').toggle();
+          e.stopPropagation();
+          e.preventDefault();
+        });
+      });
+</script>
+{% endblock body %}
